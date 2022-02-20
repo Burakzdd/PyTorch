@@ -11,25 +11,22 @@ PyTorch’ tercih etme sebeplerinin başında;
   Pythonic olması ve sinir ağ modellerini sorunsuz bir şekilde oluşturabilmesi
 gibi sebepler yatmanktadır.
 
-VERİLER ile GİRİŞ;
+## VERİLER ile GİRİŞ;
 PyTorch’da veriler ile çalışırken etkinleştirmemiz gereken iki ana kütüphane vardır.
 1. torch.utils.data.DataLoader
 2. torch.utils.data.Dataset
 Bunların haricinde TorchText , TorchVision ve TorchAudio gibi veri setlerini içerisnde bulunduran kütüphanelerde kullanılır. Bu çalışma da TorchVision kütüphanesi kullanılacaktır. Bu kütüphane gerçke dünyadaki görsel çoğu nesne sınıfı içerisinde barındırmaktadır.
 
-MODEL OLUŞTURMA ve KAYDETME;
+## MODEL OLUŞTURMA ve KAYDETME;
 PyTorch’da bir model (sinir ağı) oluşturulurken nn.Module komutundan yararlanılır. Bunu bir örnek üzerinden açıklayalım;
 
-#ilk olarak kütüphaneler aktif edilir
+### ilk olarak kütüphaneler aktif edilir
 import torch
 from torch import nn
-Eğitimin GPU ya da CPU cihazlarından hangisi üzerinden yapıldığına bakılır.
-#Eğitim için GPU’da mı yoksa CPU’da mı çalışıldığı kontrol edilir.
+### Eğitimin GPU ya da CPU cihazlarından hangisi üzerinden yapıldığına bakılır. Eğitim için GPU’da mı yoksa CPU’da mı çalışıldığı kontrol edilir.
 device = “cuda” if torch.cuda.is_available() else “cpu”
 print(“{} cihazı kullanılıyor”.format(device))
-
-__init__ fonksiyonu ile fonksiyonda ağın katmanları tanımlanır. forward fonksiyonuyla ise verilerin ağ üzerinden nasıl geçeceği belirlenir.
-# Model tanımlanır
+### __init__ fonksiyonu ile fonksiyonda ağın katmanları tanımlanır. forward fonksiyonuyla ise verilerin ağ üzerinden nasıl geçeceği belirlenir. Model tanımlanır
 class YapaySinirAgi(nn.Module):
       def __init__(self):
           super(YapaySinirAgi, self).__init__()
@@ -47,11 +44,10 @@ class YapaySinirAgi(nn.Module):
           logits = self.linear_relu_stack(x)
           return logits
           
-Son olarakta eğer varsa oluşturulan modeli GPU’ya alıp bastırıyoruz.
+### Son olarakta eğer varsa oluşturulan modeli GPU’ya alıp bastırıyoruz.
 model = YapaySinirAgi().to(device)
 print(model)
-
-Bu oluşturduğumuz modeli kaydetmek istersek torch kütüphanesi içerisindeki save parametresini kullanırız.
+### Bu oluşturduğumuz modeli kaydetmek istersek torch kütüphanesi içerisindeki save parametresini kullanırız.
 torch.save(model.state_dict(), “model.pth”)
 print(“PyTorch modeli model.pth olarak kaydedildi”)
 
