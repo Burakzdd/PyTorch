@@ -28,12 +28,12 @@ from torch import nn`
 print(“{} cihazı kullanılıyor”.format(device))`
 ### __init__ fonksiyonu ile fonksiyonda ağın katmanları tanımlanır. forward fonksiyonuyla ise verilerin ağ üzerinden nasıl geçeceği belirlenir. Model tanımlanır
 `
-class YapaySinirAgi(nn.Module):
-      def __init__(self):
-          super(YapaySinirAgi, self).__init__()
-          self.flatten = nn.Flatten()
-          self.linear_relu_stack = nn.Sequential(
-              nn.Linear(28*28, 512),
+class YapaySinirAgi(nn.Module):`
+    `  def __init__(self):`
+       `   super(YapaySinirAgi, self).__init__()`
+       `   self.flatten = nn.Flatten()`
+       `   self.linear_relu_stack = nn.Sequential(`
+             ` nn.Linear(28*28, 512),
               nn.ReLU(),
               nn.Linear(512, 512),
               nn.ReLU(),
