@@ -13,21 +13,21 @@ gibi sebepler yatmanktadır.
 
 ## VERİLER ile GİRİŞ;
 PyTorch’da veriler ile çalışırken etkinleştirmemiz gereken iki ana kütüphane vardır.
-1. torch.utils.data.DataLoader
-2. torch.utils.data.Dataset
+1. `torch.utils.data.DataLoader`
+2. `torch.utils.data.Dataset`
 Bunların haricinde TorchText , TorchVision ve TorchAudio gibi veri setlerini içerisnde bulunduran kütüphanelerde kullanılır. Bu çalışma da TorchVision kütüphanesi kullanılacaktır. Bu kütüphane gerçke dünyadaki görsel çoğu nesne sınıfı içerisinde barındırmaktadır.
 
 ## MODEL OLUŞTURMA ve KAYDETME;
 PyTorch’da bir model (sinir ağı) oluşturulurken nn.Module komutundan yararlanılır. Bunu bir örnek üzerinden açıklayalım;
 
 ### ilk olarak kütüphaneler aktif edilir
-'import torch
-from torch import nn'
+`import torch
+from torch import nn`
 ### Eğitimin GPU ya da CPU cihazlarından hangisi üzerinden yapıldığına bakılır. Eğitim için GPU’da mı yoksa CPU’da mı çalışıldığı kontrol edilir.
-'device = “cuda” if torch.cuda.is_available() else “cpu”
-print(“{} cihazı kullanılıyor”.format(device))'
+`device = “cuda” if torch.cuda.is_available() else “cpu”
+print(“{} cihazı kullanılıyor”.format(device))`
 ### __init__ fonksiyonu ile fonksiyonda ağın katmanları tanımlanır. forward fonksiyonuyla ise verilerin ağ üzerinden nasıl geçeceği belirlenir. Model tanımlanır
-'class YapaySinirAgi(nn.Module):
+`class YapaySinirAgi(nn.Module):
       def __init__(self):
           super(YapaySinirAgi, self).__init__()
           self.flatten = nn.Flatten()
@@ -42,12 +42,11 @@ print(“{} cihazı kullanılıyor”.format(device))'
       def forward(self, x):
           x = self.flatten(x)
           logits = self.linear_relu_stack(x)
-          return logits
-          '
+          return logits`
 ### Son olarakta eğer varsa oluşturulan modeli GPU’ya alıp bastırıyoruz.
-'model = YapaySinirAgi().to(device)
-print(model)'
+`model = YapaySinirAgi().to(device)
+print(model)`
 ### Bu oluşturduğumuz modeli kaydetmek istersek torch kütüphanesi içerisindeki save parametresini kullanırız.
-'torch.save(model.state_dict(), “model.pth”)
+`torch.save(model.state_dict(), “model.pth”)
 print(“PyTorch modeli model.pth olarak kaydedildi”)
-'
+`
