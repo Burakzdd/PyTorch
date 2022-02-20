@@ -27,7 +27,8 @@ from torch import nn`
 `device = “cuda” if torch.cuda.is_available() else “cpu”
 print(“{} cihazı kullanılıyor”.format(device))`
 ### __init__ fonksiyonu ile fonksiyonda ağın katmanları tanımlanır. forward fonksiyonuyla ise verilerin ağ üzerinden nasıl geçeceği belirlenir. Model tanımlanır
-`class YapaySinirAgi(nn.Module):
+`
+class YapaySinirAgi(nn.Module):
       def __init__(self):
           super(YapaySinirAgi, self).__init__()
           self.flatten = nn.Flatten()
@@ -42,7 +43,8 @@ print(“{} cihazı kullanılıyor”.format(device))`
       def forward(self, x):
           x = self.flatten(x)
           logits = self.linear_relu_stack(x)
-          return logits`
+          return logits
+          `
 ### Son olarakta eğer varsa oluşturulan modeli GPU’ya alıp bastırıyoruz.
 `model = YapaySinirAgi().to(device)
 print(model)`
